@@ -57,13 +57,15 @@ User <-- (Socket.IO) --> OCPP Server <-- (Websocket) --> EV Charger(Websocket cl
 In my file sampleClients/chargerClient.js
 
  Connects to CSMS over Websocket
- Sends: * BootNotification
-        * Heartbeat
-        * TransactionStarted
-        * MeterValues
-        * TransactionStopped
-Responds to: * RemoteStartTransaction
-             * RemoteStopTransaction
+ Sends: 
+  * BootNotification
+  * Heartbeat
+  * TransactionStarted
+  * MeterValues
+  * TransactionStopped
+Responds to:
+  * RemoteStartTransaction
+  * RemoteStopTransaction
 Stimulates battery changing by increasing battery level every second.
 
 *OCPP Server (CSMS Backend):* 
