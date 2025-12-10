@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EV User Control Panel</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    #log {
+      height: 250px;
+      width: 100%;
+      overflow-y: auto;
+      background: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    #value {
+        padding: 10px;
+        height: 20px;
+        width: 50px;
+        border-radius: 8px;
+        border: 1px solid black;
+    }
+    button {
+      padding: 12px 20px;
+      margin-right: 8px;
+      margin-top: 8px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>EV User Control Panel</h2>
+  <input type="number" id="value" />
+  <button id="startBtn">Start Charging</button>
+  <button id="stopBtn">Stop Charging</button>
+
+  <h3>Events Log</h3>
+  <div id="log"></div>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+  <script>
+    const socket = io("http://localhost:5000");
+    const ip = document.getElementById("value");
+
+    const logBox = document.getElementById("log");
+    function log(message) {
+      const line = document.createElement("div");
+      line.textContent = message;
+      logBox.appendChild(line);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    socket.on("connect", () => {
+      log("Connected to backend");
+    });
+
+    document.getElementById("startBtn").onclick = () => {
+      logBox.innerHTML = "";
+      const initValue = Number(ip.value);
+      log("→ Sending RemoteStart");
+      socket.emit("RemoteStart", {
+        chargerId: "CP_001",
+        idTag: "USER123",
+        initValue
+      });
+    };
+
+    document.getElementById("stopBtn").onclick = () => {
+      log("→ Sending RemoteStop");
+      socket.emit("RemoteStop", {
+        chargerId: "CP_001",
+      });
+    };
+
+    socket.on("fromOcpp", (msg) => {
+      log("Charger → User → " + JSON.stringify(msg));
+    });
+
+    socket.on("disconnect", () => {
+      log("Disconnected from backend");
+    });
+  </script>
+
+</body>
+</html>
