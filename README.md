@@ -33,7 +33,7 @@ This Websocket is especially relevant for EV systems where:
     
 **Message Flow:**
 
-User Browser <=> User Backend (Socket.IO) <=> OCPP Server (Websocket) <=> EV Charger(Websocket client)
+User <-- (Socket.IO) --> OCPP Server <-- (Websocket) --> EV Charger(Websocket client)
 
 **Communication Sequence:** 
 
@@ -92,6 +92,10 @@ Shows: • Charger Events Log
        • Battery progression
        • Status changes in real-time
        • Start / Stop Charging controls
+
+**Sample Output**
+given below is a snapshot of the user UI in real time:
+<img width="953" height="507" alt="image" src="https://github.com/user-attachments/assets/b2a07773-c10b-4ed1-9fdc-6eeaf11bca9b" />
 
 **Key Deliverables**
   • Understanding of WebSocket fundamentals
