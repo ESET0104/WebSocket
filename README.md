@@ -66,6 +66,7 @@ In my file sampleClients/chargerClient.js
 Responds to:
   * RemoteStartTransaction
   * RemoteStopTransaction
+
 Stimulates battery changing by increasing battery level every second.
 
 *OCPP Server (CSMS Backend):* 
