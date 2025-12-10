@@ -19,11 +19,11 @@ A WebSocket: Creates a permanent two-way communication channel between client an
   
 **WHY DO WE NEED WEBSOCKETS?**
 WebSockets are needed for applications that require:
-  • Instant updates
-  • Live streaming of data
-  • Two-way communication
-  • Persistent, low-latency connections
-  • Real-time dashboards and control
+  * Instant updates
+  * Live streaming of data
+  * Two-way communication
+  * Persistent, low-latency connections
+  * Real-time dashboards and control
   
 This Websocket is especially relevant for EV systems where:
   1. Backend must send commands to charger at any time.
@@ -57,50 +57,52 @@ User <-- (Socket.IO) --> OCPP Server <-- (Websocket) --> EV Charger(Websocket cl
 In my file sampleClients/chargerClient.js
 
  Connects to CSMS over Websocket
- Sends: • BootNotification
-        • Heartbeat
-        • TransactionStarted
-        • MeterValues
-        • TransactionStopped
-Responds to: • RemoteStartTransaction
-             • RemoteStopTransaction
+ Sends: * BootNotification
+        * Heartbeat
+        * TransactionStarted
+        * MeterValues
+        * TransactionStopped
+Responds to: * RemoteStartTransaction
+             * RemoteStopTransaction
 Stimulates battery changing by increasing battery level every second.
 
 *OCPP Server (CSMS Backend):* 
  In my file ocppServer.js
 
-  • Accepts websocket connections from chargers
-  • Validates websocket protocol
-  • Forwards charger messages to user backend.
-  • Send control commands to chargers: • RemoteStartTransaction
-                                     • RemoteStopTransaction
+  * Accepts websocket connections from chargers
+  * Validates websocket protocol
+  * Forwards charger messages to user backend.
+  * Send control commands to chargers:
+    * RemoteStartTransaction
+    * RemoteStopTransaction
 
 *User Backend(Socket.IO):* 
  In my file server.js
 
-  • Accepts user actions: • RemoteStart
-                      • RemoteStop
-  • Forwards commands to OCPP server
-  • Streams charger updates back to browser
-  • Bridges:
+  * Accepts user actions:
+    * RemoteStart
+    * RemoteStop
+  * Forwards commands to OCPP server
+  * Streams charger updates back to browser
+  * Bridges:
     Websocket (charger) <-> Socket.IO(user)
 
 *User Client(Frontend):* 
 userClient.html
 
-Shows: • Charger Events Log
-       • Battery progression
-       • Status changes in real-time
-       • Start / Stop Charging controls
+Shows: * Charger Events Log
+       * Battery progression
+       * Status changes in real-time
+       * Start / Stop Charging controls
 
 **Sample Output**
 given below is a snapshot of the user UI in real time:
 <img width="953" height="507" alt="image" src="https://github.com/user-attachments/assets/b2a07773-c10b-4ed1-9fdc-6eeaf11bca9b" />
 
 **Key Deliverables**
-  • Understanding of WebSocket fundamentals
-  • Implementation of Socket.IO vs WS (protocol differences)
-  • Single backend bridging two protocols
-  • Simulating real EV charging logic
-  • Lightweight OCPP-like message design
-  • Real-time UI communication
+  * Understanding of WebSocket fundamentals
+  * Implementation of Socket.IO vs WS (protocol differences)
+  * Single backend bridging two protocols
+  * Simulating real EV charging logic
+  * Lightweight OCPP-like message design
+  * Real-time UI communication
